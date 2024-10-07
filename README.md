@@ -1,4 +1,4 @@
-# Rock Paper Scissors - Foundations Course Project
+# Rock Paper Scissors - Odin Foundations Course Project
 
 ### Introduction
 This project is part of the Foundations Course, where we will build a simple Rock Paper Scissors game. The game is played entirely in the console, and this project focuses on applying basic JavaScript skills like function creation, control flow, and user interaction. The graphical user interface (GUI) is not included at this stage and will be added later.
