@@ -10,6 +10,8 @@ const scissors_div = document.getElementById('scissors');
 
 const result_p = document.querySelector('.result > p');
 const reset_button = document.getElementById('reset');
+const modal_body = document.getElementById('modal-body');
+const modal = new bootstrap.Modal(document.getElementById('gameOverModal'));
 
 reset_button.addEventListener('click', function() {
     userScore = 0;
@@ -45,19 +47,25 @@ function draw(userChoice) {
     result_p.innerHTML = 'It\'s a tie! You both picked ' + userChoice + '.';
 }
 
-function game(userChoice) {
+function checkGameOver() {
     if (userScore >= 5 || computerScore >= 5) {
+        let message;
         if (userScore > computerScore) {
-            result_p.innerHTML = 'You win the game!\nFinal score - You: ' + userScore + ', Computer: ' + computerScore + '.';
-        } else if (userScore < computerScore) {
-            result_p.innerHTML = 'You lose the game!\nFinal score - You: ' + userScore + ', Computer: ' + computerScore + '.';
+            message = 'You won the game!\nFinal score - You: ' + userScore + ', Computer: ' + computerScore + '.';
         } else {
-            result_p.innerHTML = 'It\'s a tie game!\nFinal score - You: ' + userScore + ', Computer: ' + computerScore + '.';
+            message = 'You lost the game!\nFinal score - You: ' + userScore + ', Computer: ' + computerScore + '.';
         }
-        return;
+        modal_body.innerHTML = message;
+        modal.show();
+        return true;
     }
+    return false;
+}
+
+function game(userChoice) {
+    if (checkGameOver()) return; // Stop the game if it's over
     const computerChoice = getComputerChoice();
-    switch(userChoice + computerChoice) {
+    switch (userChoice + computerChoice) {
         case 'rockscissors':
         case 'paperrock':
         case 'scissorspaper':
@@ -74,6 +82,7 @@ function game(userChoice) {
             draw(userChoice);
             break;
     }
+    checkGameOver(); // Check if the game is over after the round
 }
 
 function main() {
